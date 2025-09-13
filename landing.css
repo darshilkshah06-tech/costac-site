@@ -104,18 +104,28 @@ html,body{
    ================================ */
 .hero {
   background: url('landinghero.jpg') no-repeat center center;
-  background-size: cover;
-  min-height: 100vh;
+  background-size: cover;         /* always cover the screen */
+  min-height: 100vh;              /* take full viewport height */
   display: flex;
   align-items: center;
   padding-block: clamp(2rem, 6vw, 5rem);
+  color: white;                   /* ensure text is visible */
 }
 
 @media (max-width: 767.98px) {
   .hero {
-    background-position: center top;
-    background-size: contain;   /* scale whole image inside */
-    background-repeat: no-repeat;
+    background-position: center top;  /* focus on top for mobile */
+    background-size: cover;           /* still cover, no empty bars */
+    text-align: center;               /* center-align text on small screens */
+  }
+
+  .hero__content {
+    margin-inline: auto;              /* center block */
+    max-width: 90%;                   /* prevent edge-to-edge text */
+  }
+
+  .cta-row {
+    justify-content: center;
   }
 }
 
@@ -665,30 +675,6 @@ html,body{
   font-size: 0.98rem;
 }
 
-/* Media (image/video) containment */
-.hero__media {
-  width: 100%;
-}
-
-.hero__media img,
-.hero__media video,
-.hero__media svg,
-.hero__media picture img {
-  display: block;
-  width: 100%;
-  height: auto;             /* keep aspect ratio */
-  max-height: 420px;        /* reasonable cap on desktop */
-  object-fit: contain;      /* avoid cropping */
-}
-
-@media (max-width: 767.98px) {
-  .hero__media img,
-  .hero__media video {
-    max-height: 300px;      /* shorter on phones */
-    margin-top: 0.5rem;
-  }
-}
-
 /* Optional: center-align text on mobile for better balance */
 @media (max-width: 767.98px) {
   .hero__content {
@@ -700,4 +686,5 @@ html,body{
     justify-content: center;
   }
 }
+
 
