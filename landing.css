@@ -103,12 +103,20 @@ html,body{
    3) Hero (now uses same gutters as others)
    ================================ */
 .hero {
-  height: 100vh;
-  background: url('landinghero.jpg') no-repeat right center;
+  background: url('landinghero.jpg') no-repeat center center;
   background-size: cover;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-left: 8%;
+  padding-block: clamp(2rem, 6vw, 5rem);
+}
+
+@media (max-width: 767.98px) {
+  .hero {
+    background-position: center top;
+    background-size: contain;   /* scale whole image inside */
+    background-repeat: no-repeat;
+  }
 }
 
 .hero-content {
@@ -692,3 +700,4 @@ html,body{
     justify-content: center;
   }
 }
+
