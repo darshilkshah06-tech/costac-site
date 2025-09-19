@@ -102,31 +102,20 @@ html,body{
 /* ================================
    3) Hero (now uses same gutters as others)
    ================================ */
+/* ================================
+   HERO (unified, responsive, full image visible)
+   ================================ */
 .hero {
-  background: url('landinghero.jpg') no-repeat center center;
-  background-size: cover;         /* always cover the screen */
-  min-height: 100vh;              /* take full viewport height */
+  height: 100vh;
+  background: url('landinghero.jpg') no-repeat right center;
+  background-size: auto 100%;   /* fill vertically, contain horizontally */
+  background-color: #000;       /* fallback for side gaps */
+  
   display: flex;
   align-items: center;
-  padding-block: clamp(2rem, 6vw, 5rem);
-  color: white;                   /* ensure text is visible */
-}
-
-@media (max-width: 767.98px) {
-  .hero {
-    background-position: center top;  /* focus on top for mobile */
-    background-size: cover;           /* still cover, no empty bars */
-    text-align: center;               /* center-align text on small screens */
-  }
-
-  .hero__content {
-    margin-inline: auto;              /* center block */
-    max-width: 90%;                   /* prevent edge-to-edge text */
-  }
-
-  .cta-row {
-    justify-content: center;
-  }
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 5rem);
+  text-align: center;
 }
 
 .hero-content {
@@ -135,20 +124,19 @@ html,body{
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  color: #c1f0c1
+  margin: 0 0 0.6rem 0;
+  color: #c1f0c1;
 }
 
 .typing {
   position: relative;
   display: inline-block;
-  /* optional for nicer wrapping on small screens */
   word-break: break-word;
 }
-
 .typing::after {
   content: "";
   position: absolute;
@@ -158,46 +146,50 @@ html,body{
   background: currentColor;
   animation: blink 0.9s step-end infinite;
 }
-.typing.done::after {
-  display: none;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
+.typing.done::after { display: none; }
+@keyframes blink { 50% { opacity: 0; } }
 
 .hero p {
-  margin-top: 8px;   /* tighter gap from the h1 */
-  margin-bottom: 16px; /* still some breathing room before buttons */
-  font-size: 2rem;
+  margin: 0 0 1.2rem 0;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  line-height: 1.5;
+  color: white;
 }
 
 .highlight {
-  color: #3bc7c4; /* teal accent */
+  color: #3bc7c4;
   font-weight: bold;
 }
 
-.cta-buttons {
-  margin-top: 20px;
+.cta-row {
+  display: flex;
+  flex-direction: column;   /* stack vertically on mobile */
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.btn-primary, .btn-secondary {
-  padding: 12px 24px;
-  margin-right: 15px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
+/* Buttons use global .btn system */
+.cta-row .btn--primary {
+  background: #3bc7c4;  /* teal */
+  color: #000;
 }
 
-.btn-primary {
-  background: #3bc7c4;
-  color: black;
+.cta-row .btn--secondary {
+  background: #fff;     /* solid white */
+  color: #000;
+  border: none;
 }
 
-.btn-secondary {
-  border: 2px solid #fff;
-  color: white;
+/* On larger screens, put them side-by-side */
+@media (min-width: 768px) {
+  .cta-row {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
+
+
 /* Devices */
 .devices{ position:relative }
 .laptop{
@@ -606,6 +598,7 @@ html,body{
   .footer__grid{ grid-template-columns:repeat(4,1fr) }
 }
 
+
 /* ================================
    HERO — Mobile-first responsive fixes
    ================================ */
@@ -652,12 +645,6 @@ html,body{
   margin: 0 0 0.6rem 0;
 }
 
-.hero p {
-  font-size: clamp(1rem, 3.6vw, 1.125rem);
-  line-height: 1.6;
-  color: #111;
-  margin: 0 0 1rem 0;
-}
 
 /* CTA buttons wrap nicely on small screens */
 .hero__cta,
@@ -675,6 +662,30 @@ html,body{
   font-size: 0.98rem;
 }
 
+/* Media (image/video) containment */
+.hero__media {
+  width: 100%;
+}
+
+.hero__media img,
+.hero__media video,
+.hero__media svg,
+.hero__media picture img {
+  display: block;
+  width: 100%;
+  height: auto;             /* keep aspect ratio */
+  max-height: 420px;        /* reasonable cap on desktop */
+  object-fit: contain;      /* avoid cropping */
+}
+
+@media (max-width: 767.98px) {
+  .hero__media img,
+  .hero__media video {
+    max-height: 300px;      /* shorter on phones */
+    margin-top: 0.5rem;
+  }
+}
+
 /* Optional: center-align text on mobile for better balance */
 @media (max-width: 767.98px) {
   .hero__content {
@@ -686,5 +697,3 @@ html,body{
     justify-content: center;
   }
 }
-
-
